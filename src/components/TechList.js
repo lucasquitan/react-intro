@@ -15,8 +15,32 @@ import TechItem from './Techitem';
 class TechList extends Component {
   state = {
     newTech: '',
-    techs: ['NodeJS', 'ReactJS', 'React Native'],
+    techs: [],
   };
+
+  /**
+   * ComponentDidMount => Executado assim que o componente aparece em tela
+   * ComponentDidUpdate => Executado sempre que houver alterações nas props ou estados.
+   * ComponentWillUnmount => Executado quando o componente deixar de existir.
+   */
+
+  componentDidMount() {
+    const techs = localStorage.getItem('techs');
+
+    if (techs) {
+      this.setState({
+        techs: JSON.parse(techs),
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // pode declarar com um '_': componentDidUpdate(_, prevState) {}
+    // this.props, this.state
+    if (prevState.techs !== this.state.techs) {
+      localStorage.setItem('techs', JSON.stringify(this.state.techs));
+    }
+  }
 
   /**
    * O método precisa ser inscrito em forma de arrow function
