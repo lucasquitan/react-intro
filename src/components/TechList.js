@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
+import TechItem from './Techitem';
+
 /**
  * É possível criar um componente de 2 formas> Classe e Função.
  *
  * Toda componente de classe deve conter o método "render()"
+ *
+ * Para acessar uma propriedade em um componente de classse, seria necessário
+ * acessar 'this.props.<name>'
+ *
+ * Em um componente de função é possível acessar através parâmetros
  */
 class TechList extends Component {
   state = {
@@ -47,12 +54,11 @@ class TechList extends Component {
       <form onSubmit={this.handleSubmit}>
         <ul>
           {this.state.techs.map(tech => (
-            <li key={tech}>
-              {tech}
-              <button onClick={() => this.handleDelete(tech)} type="button">
-                Remover
-              </button>
-            </li>
+            <TechItem
+              onDelete={() => this.handleDelete(tech)}
+              tech={tech}
+              key={tech}
+            />
           ))}
         </ul>
         <input
